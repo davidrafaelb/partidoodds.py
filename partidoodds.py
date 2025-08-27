@@ -82,9 +82,15 @@ def expected_goal_minutes(lam, n_goals=3):
 st.title("⚽ Estimación de goles y minutos esperados según odds")
 
 st.subheader("Ingresar odds (decimal)")
-odd_home = st.number_input("Odd Local", value=2.20, format="%.2f")
-odd_draw = st.number_input("Odd Empate", value=3.40, format="%.2f")
-odd_away = st.number_input("Odd Visitante", value=3.20, format="%.2f")
+
+# Entrada única tipo texto
+odds_input = st.text_input("Ingrese odds en formato: local, empate, visitante", "2.20, 3.40, 3.20")
+
+try:
+    odd_home, odd_draw, odd_away = [float(x.strip()) for x in odds_input.split(",")]
+except:
+    st.error("⚠️ Formato inválido. Usa el formato: 2.20, 3.40, 3.20")
+    st.stop()
 
 odds = {'home': odd_home, 'draw': odd_draw, 'away': odd_away}
 
